@@ -67,6 +67,11 @@ public class PinyinDictionary {
     private static final char VOWEL_V = 'v';
 
     /**
+     * 非元音 'n'，但可标注声调
+     */
+    private static final char VOWEL_N = 'n';
+
+    /**
      * 元音四种声调字符 Map，Key 为元音字母，Value 为该元音对应的四种声调字符
      */
     private static final Map<Character, Character[]> MARKED_VOWEL_MAP;
@@ -79,6 +84,7 @@ public class PinyinDictionary {
         MARKED_VOWEL_MAP.put(VOWEL_O, new Character[]{'ō', 'ó', 'ǒ', 'ò'});
         MARKED_VOWEL_MAP.put(VOWEL_U, new Character[]{'ū', 'ú', 'ǔ', 'ù'});
         MARKED_VOWEL_MAP.put(VOWEL_V, new Character[]{'ǖ', 'ǘ', 'ǚ', 'ǜ'});
+        MARKED_VOWEL_MAP.put(VOWEL_N, new Character[]{'n', 'ń', 'ň', 'ǹ'});
     }
 
     /**
@@ -163,6 +169,11 @@ public class PinyinDictionary {
             int indexOfV = pinyinWithoutTone.indexOf(VOWEL_V);
             if (indexOfV >= 0) {
                 return replaceVowelWithToneMark(pinyinWithoutTone, toneNumber, indexOfV);
+            }
+
+            int indexOfN = pinyinWithoutTone.indexOf(VOWEL_N);
+            if (indexOfN >= 0) {
+                return replaceVowelWithToneMark(pinyinWithoutTone, toneNumber, indexOfN);
             }
         }
         return pinyinWithoutTone.replace(VOWEL_V, 'ü');
