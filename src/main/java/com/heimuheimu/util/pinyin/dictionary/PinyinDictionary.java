@@ -88,41 +88,45 @@ public class PinyinDictionary {
     }
 
     /**
-     * 拼音 Map，Key 为汉字对应的 unicode 值，Value 为汉字对应的拼音数组，拼音带有数字声调
+     * 拼音 Map，Key 为汉字对应的 UNICODE 编码值，Value 为汉字对应的带有数字声调的拼音数组
      */
     private final Map<Integer, String[]> pinyinMap;
 
     /**
      * 构造一个汉字拼音字典。
      *
-     * @param pinyinMap 词典使用的拼音 Map，Key 为汉字对应的 unicode 值，Value 为汉字对应的拼音数组，拼音带有数字声调
+     * @param pinyinMap 词典使用的拼音 Map，Key 为汉字对应的 UNICODE 编码值，Value 为汉字对应的带有数字声调的拼音数组
      */
     public PinyinDictionary(Map<Integer, String[]> pinyinMap) {
         this.pinyinMap = pinyinMap;
     }
 
     /**
-     * 根据汉字的 unicode 值（0x4e00 - 0x9fa5）获得对应的拼音数组，拼音带有数字声调，例如：lv3, bai4, de5。
+     * 根据中文字符 UNICODE 编码值获得对应的带有数字声调的拼音数组，数字声调位于拼音最后，使用数字 1 - 5 表示，5 为轻声，例如：lv3, bai4, de5。
      *
-     * <p>如果 unicode 值不在指定的范围内，则返回 {@code null}。</p>
+     * <p>如果查找的 UNICODE 编码值在字典中不存在，将会返回 {@code null}。</p>
      *
-     * <p>数字声调位于拼音最后，使用数字 1 - 5 表示，5 为轻声。</p>
-     *
-     * @param chineseCharacterUnicode 汉字的 unicode 值（0x4e00 - 0x9fa5）
-     * @return 汉字对应的拼音数组，拼音带有数字声调，可能返回 {@code null}
+     * @param codePoint 中文字符 UNICODE 编码值
+     * @return 带有数字声调的拼音数组，可能返回 {@code null}
      */
-    public String[] getPinyin(int chineseCharacterUnicode) {
-        return pinyinMap.get(chineseCharacterUnicode);
+    public String[] getPinyinWithToneNumber(int codePoint) {
+        return pinyinMap.get(codePoint);
     }
 
     /**
-     * 移除拼音中的数字声调并返回，例如 "lv3" 移除数字声调后的拼音为 "lv"。
+     * 移除拼音中最后一位的数字声调并返回，例如 "lv3" 移除数字声调后的拼音为 "lv"。
+     *
+     * <p>如果传入的不是带数字声调的拼音，将原内容返回。</p>
      *
      * @param pinyinWithToneNumber 带有数字声调的拼音
      * @return 不含声调的拼音
      */
     public String removeToneNumber(String pinyinWithToneNumber) {
-        return pinyinWithToneNumber.substring(0, pinyinWithToneNumber.length() - 1);
+        if (PinyinDictionaryHelper.isPinyinWithToneNumber(pinyinWithToneNumber)) {
+            return pinyinWithToneNumber.substring(0, pinyinWithToneNumber.length() - 1);
+        } else {
+            return pinyinWithToneNumber;
+        }
     }
 
     /**
@@ -137,46 +141,52 @@ public class PinyinDictionary {
      *     </ul>
      * </p>
      *
+     * <p>如果传入的不是带数字声调的拼音，将原内容返回。</p>
+     *
      * @param pinyinWithToneNumber 带有数字声调的拼音
      * @return 带有符号声调的拼音
      */
     public String toPinyinWithToneMark(String pinyinWithToneNumber) {
-        int toneNumber = Integer.parseInt(String.valueOf(pinyinWithToneNumber.charAt(pinyinWithToneNumber.length() - 1)));
-        String pinyinWithoutTone = removeToneNumber(pinyinWithToneNumber);
-        if (toneNumber >= 1 && toneNumber <= 4) {
-            int indexOfA = pinyinWithoutTone.indexOf(VOWEL_A);
-            if (indexOfA >= 0) {
-                return replaceVowelWithToneMark(pinyinWithoutTone, toneNumber, indexOfA);
-            }
+        if (PinyinDictionaryHelper.isPinyinWithToneNumber(pinyinWithToneNumber)) {
+            int toneNumber = Integer.parseInt(String.valueOf(pinyinWithToneNumber.charAt(pinyinWithToneNumber.length() - 1)));
+            String pinyinWithoutTone = removeToneNumber(pinyinWithToneNumber);
+            if (toneNumber >= 1 && toneNumber <= 4) {
+                int indexOfA = pinyinWithoutTone.indexOf(VOWEL_A);
+                if (indexOfA >= 0) {
+                    return replaceVowelWithToneMark(pinyinWithoutTone, toneNumber, indexOfA);
+                }
 
-            int indexOfO = pinyinWithoutTone.indexOf(VOWEL_O);
-            if (indexOfO >= 0) {
-                return replaceVowelWithToneMark(pinyinWithoutTone, toneNumber, indexOfO);
-            }
+                int indexOfO = pinyinWithoutTone.indexOf(VOWEL_O);
+                if (indexOfO >= 0) {
+                    return replaceVowelWithToneMark(pinyinWithoutTone, toneNumber, indexOfO);
+                }
 
-            int indexOfE = pinyinWithoutTone.indexOf(VOWEL_E);
-            if (indexOfE >= 0) {
-                return replaceVowelWithToneMark(pinyinWithoutTone, toneNumber, indexOfE);
-            }
+                int indexOfE = pinyinWithoutTone.indexOf(VOWEL_E);
+                if (indexOfE >= 0) {
+                    return replaceVowelWithToneMark(pinyinWithoutTone, toneNumber, indexOfE);
+                }
 
-            int indexOfI = pinyinWithoutTone.indexOf(VOWEL_I);
-            int indexOfU = pinyinWithoutTone.indexOf(VOWEL_U);
-            int indexOfIOrU = Math.max(indexOfI, indexOfU);
-            if (indexOfIOrU >= 0) {
-                return replaceVowelWithToneMark(pinyinWithoutTone, toneNumber, indexOfIOrU);
-            }
+                int indexOfI = pinyinWithoutTone.indexOf(VOWEL_I);
+                int indexOfU = pinyinWithoutTone.indexOf(VOWEL_U);
+                int indexOfIOrU = Math.max(indexOfI, indexOfU);
+                if (indexOfIOrU >= 0) {
+                    return replaceVowelWithToneMark(pinyinWithoutTone, toneNumber, indexOfIOrU);
+                }
 
-            int indexOfV = pinyinWithoutTone.indexOf(VOWEL_V);
-            if (indexOfV >= 0) {
-                return replaceVowelWithToneMark(pinyinWithoutTone, toneNumber, indexOfV);
-            }
+                int indexOfV = pinyinWithoutTone.indexOf(VOWEL_V);
+                if (indexOfV >= 0) {
+                    return replaceVowelWithToneMark(pinyinWithoutTone, toneNumber, indexOfV);
+                }
 
-            int indexOfN = pinyinWithoutTone.indexOf(VOWEL_N);
-            if (indexOfN >= 0) {
-                return replaceVowelWithToneMark(pinyinWithoutTone, toneNumber, indexOfN);
+                int indexOfN = pinyinWithoutTone.indexOf(VOWEL_N);
+                if (indexOfN >= 0) {
+                    return replaceVowelWithToneMark(pinyinWithoutTone, toneNumber, indexOfN);
+                }
             }
+            return pinyinWithoutTone.replace(VOWEL_V, 'ü');
+        } else {
+            return pinyinWithToneNumber;
         }
-        return pinyinWithoutTone.replace(VOWEL_V, 'ü');
     }
 
     /**

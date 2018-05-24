@@ -24,6 +24,7 @@
 
 package com.heimuheimu.util.pinyin.multi;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +62,11 @@ public class PinyinSelector {
     public PinyinSelector(int chineseCharacterUnicode, String defaultPinyin, Map<String, List<ChineseWordMatcher>> chineseWordMatcherMap) {
         this.chineseCharacterUnicode = chineseCharacterUnicode;
         this.defaultPinyin = defaultPinyin;
-        this.chineseWordMatcherMap = chineseWordMatcherMap;
+        if (chineseWordMatcherMap != null) {
+            this.chineseWordMatcherMap = chineseWordMatcherMap;
+        } else {
+            this.chineseWordMatcherMap = new HashMap<>();
+        }
     }
 
     /**

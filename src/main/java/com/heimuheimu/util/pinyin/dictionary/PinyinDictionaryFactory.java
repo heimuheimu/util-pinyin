@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 汉字拼音字典工厂类，字典内容与 "/com/heimuheimu/util/pinyin/dictionary/dict.csv" 文件内容一致。
+ * 汉字拼音字典工厂类，字典内容与 "/com/heimuheimu/util/pinyin/dictionary/pinyin_mapping.txt" 文件内容一致。
  *
  * <p><strong>说明：</strong>{@code PinyinDictionaryFactory} 类是线程安全的，可在多个线程中使用同一个实例。</p>
  *
@@ -40,26 +40,42 @@ import java.util.Map;
  */
 public class PinyinDictionaryFactory {
 
-    private static final String DICTIONARY_CSV_FILE_PATH = "/com/heimuheimu/util/pinyin/dictionary/dict.csv";
+    private static final String PINYIN_MAPPING_FILE_PATH = "/com/heimuheimu/util/pinyin/dictionary/pinyin_mapping.txt";
 
     private static final PinyinDictionary DICTIONARY;
 
     static {
-        try (InputStream in = PinyinDictionaryFactory.class.getResourceAsStream(DICTIONARY_CSV_FILE_PATH);
+        try (InputStream in = PinyinDictionaryFactory.class.getResourceAsStream(PINYIN_MAPPING_FILE_PATH);
              BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
             Map<Integer, String[]> pinyinMap = new HashMap<>();
-            int chineseCharacterUnicode = 0x4e00;
+            int codePoint = 0x4e00;
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] pinyinArray = line.split(",");
-                pinyinMap.put(chineseCharacterUnicode++, pinyinArray);
+                String[] pinyinWithToneNumberArray = line.split(",");
+                if (pinyinWithToneNumberArray.length == 0) {
+                    throw new IllegalArgumentException("Empty pinyin with tone number array. Code point: `"
+                            + Integer.toString(codePoint, 16) + ". Line number: `" + (codePoint - 0x4e00 + 1) + ".");
+                }
+                for (String pinyinWithToneNumber : pinyinWithToneNumberArray) {
+                    if (!PinyinDictionaryHelper.isPinyinWithToneNumber(pinyinWithToneNumber)) {
+                        throw new IllegalArgumentException("Invalid pinyin with tone number: `" + pinyinWithToneNumber
+                                + "`. Code point: `" + Integer.toString(codePoint, 16) + "`. Line number: `"
+                                + + (codePoint - 0x4e00 + 1) + ".");
+                    }
+                }
+                pinyinMap.put(codePoint++, pinyinWithToneNumberArray);
             }
             DICTIONARY = new PinyinDictionary(pinyinMap);
         } catch (Exception e) {
-            throw new IllegalArgumentException("Could not load pinyin dictionary csv file: `" + DICTIONARY_CSV_FILE_PATH + "`.", e);
+            throw new IllegalArgumentException("Load pinyin mapping file failed: `" + PINYIN_MAPPING_FILE_PATH + "`.", e);
         }
     }
 
+    /**
+     * 获得汉字拼音字典，字典内容与 "/com/heimuheimu/util/pinyin/dictionary/pinyin_mapping.txt" 文件内容一致。
+     *
+     * @return 汉字拼音字典
+     */
     public static PinyinDictionary getDictionary() {
         return DICTIONARY;
     }
