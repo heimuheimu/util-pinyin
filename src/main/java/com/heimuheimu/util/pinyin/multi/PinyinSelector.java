@@ -24,6 +24,8 @@
 
 package com.heimuheimu.util.pinyin.multi;
 
+import com.heimuheimu.util.pinyin.dictionary.PinyinDictionaryHelper;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,9 +40,9 @@ import java.util.Map;
 public class PinyinSelector {
 
     /**
-     * 多音字对应的 unicode 值。
+     * 多音字对应的 UNICODE 编码值
      */
-    private final int chineseCharacterUnicode;
+    private final int codePoint;
 
     /**
      * 多音字默认带有数字声调的拼音
@@ -55,14 +57,28 @@ public class PinyinSelector {
     /**
      * 构造一个多音字拼音选择器，每个选择器实例对应一个多音字符。
      *
-     * @param chineseCharacterUnicode 多音字对应的 unicode 值
+     * @param codePoint 多音字对应的 UNICODE 编码值，必须为中文字符
      * @param defaultPinyin 多音字默认带有数字声调的拼音
-     * @param chineseWordMatcherMap 多音字中文词组匹配器 Map，Key 为多音字对应的带有数字声调的拼音，Value 为该拼音对应的中文词组匹配器
+     * @param chineseWordMatcherMap 多音字中文词组匹配器 Map，Key 为多音字对应的带有数字声调的拼音，Value 为该拼音对应的中文词组匹配器，允许为 {@code null}
+     * @throws IllegalArgumentException 如果 {@code codePoint} 不是中文字符，将抛出此异常
+     * @throws IllegalArgumentException 如果 {@code defaultPinyin} 或 {@code chineseWordMatcherMap} 中的拼音不是带有数字声调的拼音，将抛出此异常
      */
-    public PinyinSelector(int chineseCharacterUnicode, String defaultPinyin, Map<String, List<ChineseWordMatcher>> chineseWordMatcherMap) {
-        this.chineseCharacterUnicode = chineseCharacterUnicode;
+    public PinyinSelector(int codePoint, String defaultPinyin, Map<String, List<ChineseWordMatcher>> chineseWordMatcherMap)
+        throws IllegalArgumentException {
+        if (!PinyinDictionaryHelper.isChineseCharacter(codePoint)) {
+            throw new IllegalArgumentException("`" + Integer.toString(codePoint, 16) + "` is not a valid chinese character.");
+        }
+        this.codePoint = codePoint;
+        if (!PinyinDictionaryHelper.isPinyinWithToneNumber(defaultPinyin)) {
+            throw new IllegalArgumentException("`" + defaultPinyin + "` is not a valid pinyin with tone number.");
+        }
         this.defaultPinyin = defaultPinyin;
         if (chineseWordMatcherMap != null) {
+            for (String pinyin : chineseWordMatcherMap.keySet()) {
+                if (!PinyinDictionaryHelper.isPinyinWithToneNumber(pinyin)) {
+                    throw new IllegalArgumentException("`" + pinyin + "` is not a valid pinyin with tone number.");
+                }
+            }
             this.chineseWordMatcherMap = chineseWordMatcherMap;
         } else {
             this.chineseWordMatcherMap = new HashMap<>();
@@ -78,9 +94,9 @@ public class PinyinSelector {
      * @throws IllegalArgumentException 如果指定索引位置的多音字符与当前选择器对应的多音字符不一致，则抛出此异常
      */
     public String getPinyin(char[] targetCharacters, int targetIndex) throws IllegalArgumentException {
-        if (targetCharacters[targetIndex] != chineseCharacterUnicode) {
+        if (targetCharacters[targetIndex] != codePoint) {
             throw new IllegalArgumentException("Invalid target character: `" + Integer.toString(targetCharacters[targetIndex], 16)
-                + "`. Expected character: `" + Integer.toString(chineseCharacterUnicode, 16) + "`.");
+                + "`. Expected character: `" + Integer.toString(codePoint, 16) + "`.");
         }
         for (String pinyin : chineseWordMatcherMap.keySet()) {
             for (ChineseWordMatcher matcher : chineseWordMatcherMap.get(pinyin)) {

@@ -24,7 +24,9 @@
 
 package com.heimuheimu.util.pinyin.multi;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 中文词组匹配器。
@@ -44,6 +46,16 @@ public class ChineseWordMatcher {
      * 关键字符在词组字符数组中的索引位置数组
      */
     private final int[] pivotalCharacterIndexes;
+
+    /**
+     * 构造一个中文词组匹配器。
+     *
+     * @param chineseWord 中文词组
+     * @param targetCodePoint 关键字符 UNICODE 编码值
+     */
+    public ChineseWordMatcher(String chineseWord, int targetCodePoint) {
+        this(chineseWord, getPivotalIndexes(chineseWord, targetCodePoint));
+    }
 
     /**
      * 构造一个中文词组匹配器。
@@ -85,5 +97,20 @@ public class ChineseWordMatcher {
                 "word=" + new String(wordCharacters) +
                 ", pivotalCharacterIndexes=" + Arrays.toString(pivotalCharacterIndexes) +
                 '}';
+    }
+
+    private static int[] getPivotalIndexes(String chineseWord, int targetCodePoint) {
+        List<Integer> pivotalIndexList = new ArrayList<>();
+        for (int i = 0; i < chineseWord.length(); i++) {
+            char a = chineseWord.charAt(i);
+            if (a == targetCodePoint) {
+                pivotalIndexList.add(i);
+            }
+        }
+        int[] pivotalIndexes = new int[pivotalIndexList.size()];
+        for (int i = 0; i < pivotalIndexList.size(); i++) {
+            pivotalIndexes[i] = pivotalIndexList.get(i);
+        }
+        return pivotalIndexes;
     }
 }

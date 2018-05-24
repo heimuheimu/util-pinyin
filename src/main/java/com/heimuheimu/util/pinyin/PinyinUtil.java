@@ -24,9 +24,44 @@
 
 package com.heimuheimu.util.pinyin;
 
+import com.heimuheimu.util.pinyin.dictionary.PinyinDictionary;
+import com.heimuheimu.util.pinyin.dictionary.PinyinDictionaryFactory;
+import com.heimuheimu.util.pinyin.multi.PinyinSelector;
+import com.heimuheimu.util.pinyin.multi.PinyinSelectorFactory;
+
 public class PinyinUtil {
 
+    private static PinyinDictionary PINYIN_DICTIONARY = PinyinDictionaryFactory.getDictionary();
+
     public static String toPinyinWithToneNumber(String text) {
-        return null;
+        if (text != null && !text.isEmpty()) {
+            StringBuilder buffer = new StringBuilder();
+            char[] targetCharacters = text.toCharArray();
+            for (int i = 0; i < targetCharacters.length; i++) {
+                char targetCharacter = targetCharacters[i];
+                PinyinSelector selector = PinyinSelectorFactory.getSelector(targetCharacter);
+                if (selector == null) {
+                    String[] pinyinArray = PINYIN_DICTIONARY.getPinyinWithToneNumber(targetCharacter);
+                    if (pinyinArray == null) {
+                        buffer.append(targetCharacter);
+                    } else {
+                        String pinyin = pinyinArray[0];
+                        if (i < (targetCharacters.length - 1)) {
+                            pinyin += " ";
+                        }
+                        buffer.append(pinyin);
+                    }
+                } else {
+                    String pinyin = selector.getPinyin(targetCharacters, i);
+                    if (i < (targetCharacters.length - 1)) {
+                        pinyin += " ";
+                    }
+                    buffer.append(pinyin);
+                }
+            }
+            return buffer.toString();
+        } else {
+            return text;
+        }
     }
 }
