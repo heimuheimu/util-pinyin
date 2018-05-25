@@ -31,10 +31,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 多音字拼音选择器工厂类。
@@ -71,7 +68,7 @@ public class PinyinSelectorFactory {
                         }
                         codePoint = firstChar;
                         defaultPinyin = line.split(",")[1];
-                        chineseWordMatcherMap = new HashMap<>();
+                        chineseWordMatcherMap = new LinkedHashMap<>();
                     } else if (firstChar >= 'a' && firstChar <= 'z') {
                         if (codePoint == -1) {
                             throw new IllegalArgumentException("There is no chinese character unicode code point.");

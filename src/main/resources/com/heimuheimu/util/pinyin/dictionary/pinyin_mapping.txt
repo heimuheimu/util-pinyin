@@ -3406,7 +3406,7 @@ luan2
 yan3
 zhu2,chuo4
 lan3
-zi3
+zi3,zi5
 jie2
 jue2
 jue2

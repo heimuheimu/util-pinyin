@@ -92,6 +92,7 @@ public class PinyinUtil {
         if (text != null && !text.isEmpty()) {
             StringBuilder buffer = new StringBuilder();
             char[] targetCharacters = text.toCharArray();
+            boolean needInsertSpace = false;
             for (int i = 0; i < targetCharacters.length; i++) {
                 String pinyin = "";
                 char targetCharacter = targetCharacters[i];
@@ -110,12 +111,23 @@ public class PinyinUtil {
                     } else if (type == TYPE_WITHOUT_TONE) {
                         pinyin = PINYIN_DICTIONARY.removeToneNumber(pinyin);
                     }
+                    if (needInsertSpace) {
+                        pinyin = " " + pinyin;
+                    }
                     if (i < (targetCharacters.length - 1)) {
                         pinyin += " ";
                     }
                     buffer.append(pinyin);
+                    needInsertSpace = false;
                 } else {
                     buffer.append(targetCharacter);
+                    if (targetCharacter == 0x20 || targetCharacter == '\t' ||
+                            targetCharacter == '\n' || targetCharacter == '\r' ||
+                            targetCharacter == 0x3000) {
+                        needInsertSpace = false;
+                    } else {
+                        needInsertSpace = true;
+                    }
                 }
             }
             return buffer.toString();
