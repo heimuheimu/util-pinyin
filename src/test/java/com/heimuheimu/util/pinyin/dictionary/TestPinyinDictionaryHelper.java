@@ -34,22 +34,37 @@ import org.junit.Test;
  */
 public class TestPinyinDictionaryHelper {
 
+    /**
+     * 非中文字符 UNICODE 编码值数组
+     */
     private static int[] INVALID_CHINESE_CHARACTER_ARRAY = new int[] {
             0x4e00 - 1, 0x9fa5 + 1, 0, Integer.MAX_VALUE, Integer.MIN_VALUE, '.', '，'
     };
 
+    /**
+     * 中文字符 UNICODE 编码值数组
+     */
     private static int[] VALID_CHINESE_CHARACTER_ARRAY = new int[] {
             0x4e00, 0x4e00 + 1, 0x9fa5, 0x9fa5 - 1, '嗯', '得', '隆'
     };
 
+    /**
+     * 非带数字音标的拼音数组
+     */
     private static String[] INVALID_PINYIN_WITH_TONE_NUMBER_ARRAY = new String[] {
             null, "", "3", "33", "a", "a0", "a6", "bai", "bai33", "b3i3", " a1", "a1 "
     };
 
+    /**
+     * 带数字音标的拼音数组
+     */
     private static String[] VALID_PINYIN_WITH_TONE_NUMBER_ARRAY = new String[] {
             "a1", "a2", "a3", "a4", "a5", "bai1", "bai2", "bai3", "bai4", "bai5"
     };
 
+    /**
+     * 对 {@link PinyinDictionaryHelper#isChineseCharacter(int)} 方法进行测试
+     */
     @Test
     public void testIsChineseCharacter() {
         // 非法中文字符测试
@@ -65,6 +80,9 @@ public class TestPinyinDictionaryHelper {
         }
     }
 
+    /**
+     * 对 {@link PinyinDictionaryHelper#isPinyinWithToneNumber(String)} 方法进行测试
+     */
     @Test
     public void testIsPinyinWithToneNumber() {
         // 非法带数字拼音测试

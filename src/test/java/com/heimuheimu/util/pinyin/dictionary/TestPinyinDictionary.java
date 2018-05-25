@@ -38,6 +38,9 @@ public class TestPinyinDictionary {
 
     private static PinyinDictionary DICTIONARY = PinyinDictionaryFactory.getDictionary();
 
+    /**
+     * 中文字符 UNICODE 编码值数组
+     */
     private static int[] VALID_CHINESE_CHARACTER_ARRAY = new int[] {
             '一',
             '龥',
@@ -55,6 +58,9 @@ public class TestPinyinDictionary {
             '的'
     };
 
+    /**
+     * 和 {@code VALID_CHINESE_CHARACTER_ARRAY} 对应的带有数字声调的拼音二维数组
+     */
     private static String[][] EXPECTED_PINYIN_WITH_TONE_NUMBER_TOW_DIMENSIONAL_ARRAY = new String[][] {
             new String[]{"yi1"},
             new String[]{"yu4"},
@@ -72,6 +78,9 @@ public class TestPinyinDictionary {
             new String[]{"de5","di4", "di2", "di1"}
     };
 
+    /**
+     * 和 {@code VALID_CHINESE_CHARACTER_ARRAY} 对应的不带声调的拼音二维数组
+     */
     private static String[][] EXPECTED_PINYIN_WITHOUT_TONE_TOW_DIMENSIONAL_ARRAY = new String[][] {
             new String[]{"yi"},
             new String[]{"yu"},
@@ -89,6 +98,9 @@ public class TestPinyinDictionary {
             new String[]{"de", "di", "di", "di"}
     };
 
+    /**
+     * 和 {@code VALID_CHINESE_CHARACTER_ARRAY} 对应的带有符号声调的拼音二维数组
+     */
     private static String[][] EXPECTED_PINYIN_WITH_TONE_MARK_TOW_DIMENSIONAL_ARRAY = new String[][] {
             new String[]{"yī"},
             new String[]{"yù"},
@@ -106,10 +118,16 @@ public class TestPinyinDictionary {
             new String[]{"de", "dì", "dí", "dī"}
     };
 
+    /**
+     * 非中文字符 UNICODE 编码值数组
+     */
     private static int[] INVALID_CHINESE_CHARACTER_ARRAY = new int[] {
             0x4e00 - 1, 0x9fa5 + 1, 0, Integer.MAX_VALUE, Integer.MIN_VALUE, '.', '，'
     };
 
+    /**
+     * 对 {@link PinyinDictionary#getPinyinWithToneNumber(int)} 方法进行测试
+     */
     @Test
     public void testGetPinyinWithToneNumber() {
         // 中文字符获取拼音数组方法测试
@@ -129,6 +147,9 @@ public class TestPinyinDictionary {
         }
     }
 
+    /**
+     * 对 {@link PinyinDictionary#removeToneNumber(String)} 方法进行测试
+     */
     @Test
     public void testRemoveToneNumber() {
         // 非带数字音标拼音测试
@@ -147,6 +168,9 @@ public class TestPinyinDictionary {
         }
     }
 
+    /**
+     * 对 {@link PinyinDictionary#toPinyinWithToneMark(String)} 方法进行测试
+     */
     @Test
     public void testToPinyinWithToneMark() {
         // 非带数字音标拼音测试

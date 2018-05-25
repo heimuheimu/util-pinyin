@@ -110,6 +110,9 @@ public class PinyinSelectorFactory {
                 }
                 lineNumber++;
             }
+            if (codePoint != -1) {
+                PINYIN_SELECTOR_MAP.put(codePoint, new PinyinSelector(codePoint, defaultPinyin, chineseWordMatcherMap));
+            }
         } catch (Exception e) {
             throw new IllegalArgumentException("Load multi pinyin mapping file failed: `" + MULTI_PINYIN_MAPPING_FILE_PATH
                     + "`. Error line number: `" + lineNumber + "`.", e);
