@@ -30,7 +30,9 @@ import com.heimuheimu.util.pinyin.multi.PinyinSelector;
 import com.heimuheimu.util.pinyin.multi.PinyinSelectorFactory;
 
 /**
- * 提供将文本中的中文转换为拼音的工具方法，并支持常用多英字。
+ * 提供将文本中的中文转换为拼音的工具方法，支持常用多音字转换。
+ *
+ * <p><strong>说明：</strong>{@code PinyinUtil} 类是线程安全的，可在多个线程中使用同一个实例。</p>
  *
  * @author heimuheimu
  */
