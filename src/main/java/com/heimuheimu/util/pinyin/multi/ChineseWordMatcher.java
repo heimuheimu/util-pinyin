@@ -24,6 +24,8 @@
 
 package com.heimuheimu.util.pinyin.multi;
 
+import com.heimuheimu.util.pinyin.dictionary.PinyinDictionaryHelper;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,22 +52,37 @@ public class ChineseWordMatcher {
     /**
      * 构造一个中文词组匹配器。
      *
-     * @param chineseWord 中文词组
+     * @param chineseWord 中文词组，全部由中文字符组成
      * @param targetCodePoint 关键字符 UNICODE 编码值
+     * @throws IllegalArgumentException 如果 {@code chineseWord} 为空或者包含非中文字符，将抛出此异常
+     * @throws IllegalArgumentException 如果 {@code pivotalCharacterIndexes} 为空，将抛出此异常
      */
-    public ChineseWordMatcher(String chineseWord, int targetCodePoint) {
+    public ChineseWordMatcher(String chineseWord, int targetCodePoint) throws IllegalArgumentException  {
         this(chineseWord, getPivotalIndexes(chineseWord, targetCodePoint));
     }
 
     /**
      * 构造一个中文词组匹配器。
      *
-     * @param chineseWord 中文词组
+     * @param chineseWord 中文词组，全部由中文字符组成
      * @param pivotalCharacterIndexes 关键字符索引位置数组
+     * @throws IllegalArgumentException 如果 {@code chineseWord} 为空或者包含非中文字符，将抛出此异常
+     * @throws IllegalArgumentException 如果 {@code pivotalCharacterIndexes} 为空，将抛出此异常
      */
-    public ChineseWordMatcher(String chineseWord, int[] pivotalCharacterIndexes) {
+    public ChineseWordMatcher(String chineseWord, int[] pivotalCharacterIndexes) throws IllegalArgumentException {
+        if (chineseWord == null || chineseWord.isEmpty()) {
+            throw new IllegalArgumentException("chineseWord could not be empty.");
+        }
         this.wordCharacters = chineseWord.toCharArray();
+        for (char c : wordCharacters) {
+            if (!PinyinDictionaryHelper.isChineseCharacter(c)) {
+                throw new IllegalArgumentException("Invalid chinese character: `" + c + "`. chineseWord: `" + chineseWord + "`.");
+            }
+        }
         this.pivotalCharacterIndexes = pivotalCharacterIndexes;
+        if (pivotalCharacterIndexes == null || pivotalCharacterIndexes.length == 0) {
+            throw new IllegalArgumentException("pivotalCharacterIndexes could not be empty. chineseWord: `" + chineseWord + "`.");
+        }
     }
 
     /**

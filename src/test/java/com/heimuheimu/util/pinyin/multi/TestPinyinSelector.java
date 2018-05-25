@@ -96,6 +96,25 @@ public class TestPinyinSelector {
         Assert.assertEquals("Select wrong pinyin for chinese character `麽`.", "mo2",
                 selector.getPinyin("幺麽".toCharArray(), 1));
 
+        //多音字拼音选择测试：子
+        selector = PinyinSelectorFactory.getSelector('子');
+        Assert.assertNotNull("There is no PinyinSelector for chinese character `子`.", selector);
+        Assert.assertEquals("Select wrong pinyin for chinese character `子`.", "zi3",
+                selector.getPinyin("女子".toCharArray(), 1));
+        Assert.assertEquals("Select wrong pinyin for chinese character `子`.", "zi3",
+                selector.getPinyin("子嗣".toCharArray(), 0));
+        Assert.assertEquals("Select wrong pinyin for chinese character `子`.", "zi5",
+                selector.getPinyin("个子".toCharArray(), 1));
+        Assert.assertEquals("Select wrong pinyin for chinese character `子`.", "zi5",
+                selector.getPinyin("沙子".toCharArray(), 1));
+        Assert.assertEquals("Select wrong pinyin for chinese character `子`.", "zi5",
+                selector.getPinyin("尖子".toCharArray(), 1));
+        Assert.assertEquals("Select wrong pinyin for chinese character `子`.", "zi5",
+                selector.getPinyin("钉子".toCharArray(), 1));
+        Assert.assertEquals("Select wrong pinyin for chinese character `子`.", "zi5",
+                selector.getPinyin("挑子".toCharArray(), 1));
+        Assert.assertEquals("Select wrong pinyin for chinese character `子`.", "zi5",
+                selector.getPinyin("架子".toCharArray(), 1));
         //多音字拼音选择测试：的
         selector = PinyinSelectorFactory.getSelector('的');
         Assert.assertNotNull("There is no PinyinSelector for chinese character `的`.", selector);
