@@ -59,7 +59,7 @@ public class TestPinyinDictionary {
     };
 
     /**
-     * 和 {@code VALID_CHINESE_CHARACTER_ARRAY} 对应的带有数字声调的拼音二维数组
+     * 和 {@link #VALID_CHINESE_CHARACTER_ARRAY} 对应的带有数字声调的拼音二维数组
      */
     private static final String[][] EXPECTED_PINYIN_WITH_TONE_NUMBER_TOW_DIMENSIONAL_ARRAY = new String[][] {
             new String[]{"yi1"},
@@ -79,7 +79,7 @@ public class TestPinyinDictionary {
     };
 
     /**
-     * 和 {@code VALID_CHINESE_CHARACTER_ARRAY} 对应的不带声调的拼音二维数组
+     * 和 {@link #VALID_CHINESE_CHARACTER_ARRAY} 对应的不带声调的拼音二维数组
      */
     private static final String[][] EXPECTED_PINYIN_WITHOUT_TONE_TOW_DIMENSIONAL_ARRAY = new String[][] {
             new String[]{"yi"},
@@ -99,7 +99,7 @@ public class TestPinyinDictionary {
     };
 
     /**
-     * 和 {@code VALID_CHINESE_CHARACTER_ARRAY} 对应的带有符号声调的拼音二维数组
+     * 和 {@link #VALID_CHINESE_CHARACTER_ARRAY} 对应的带有符号声调的拼音二维数组
      */
     private static final String[][] EXPECTED_PINYIN_WITH_TONE_MARK_TOW_DIMENSIONAL_ARRAY = new String[][] {
             new String[]{"yī"},
@@ -135,7 +135,7 @@ public class TestPinyinDictionary {
             int codePoint = VALID_CHINESE_CHARACTER_ARRAY[i];
             String[] expectedPinyinArray =  EXPECTED_PINYIN_WITH_TONE_NUMBER_TOW_DIMENSIONAL_ARRAY[i];
             String[] actualPinyinArray = DICTIONARY.getPinyinWithToneNumber(codePoint);
-            Assert.assertArrayEquals("Invalid pinyin array for chinese character: `" + (char)codePoint,
+            Assert.assertArrayEquals("Invalid pinyin array for chinese character: `" + (char)codePoint + "`.",
                     expectedPinyinArray, actualPinyinArray);
         }
 
