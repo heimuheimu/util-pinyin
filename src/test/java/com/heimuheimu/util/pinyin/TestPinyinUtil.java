@@ -44,7 +44,7 @@ public class TestPinyinUtil {
             "他扒下皮鞋，就去追扒手。",
             "我收集的材料散失了，散文没法写了。",
             "两岁能数数的小孩已数见不鲜了。",
-            "人参苗长得参差不齐，还让参观吗。",
+            "人参苗长得参差不齐，还让人参观吗。",
             "今天召开的会计工作会议一会儿就要结束了。",
             "他用簸箕簸米。",
             "敌人的恐吓吓不倒他。",
@@ -56,17 +56,17 @@ public class TestPinyinUtil {
      * 和 {@link #CHINESE_SENTENCE_ARRAY} 对应的带有数字声调的拼音语句数组
      */
     private static final String[] EXPECTED_PINYIN_WITH_TONE_NUMBER_ARRAY = new String[] {
-            "wo3 bu4 xi3 huan1 chou1 xue3 jia1 yan1 ，dan4 wo3 xi3 huan1 chi1 fan1 qie2 。",
+            "wo3 bu4 xi3 huan1 chou1 xue3 jia1 yan1 ， dan4 wo3 xi3 huan1 chi1 fan1 qie2 。",
             "zhe4 zhong3 dan4 gong1 tan2 li4 hen3 qiang2 。",
-            "ting1 dao4 zhe4 ge4 e4 hao4 ，xiao3 liu2 zhan4 li4 ，xiao3 chen2 chan4 dou3 。",
-            "ta1 ba1 xia4 pi2 xie2 ，jiu4 qu4 zhui1 pa2 shou3 。",
-            "wo3 shou1 ji2 de5 cai2 liao4 san4 shi1 le5 ，san3 wen2 mei2 fa3 xie3 le5 。",
+            "ting1 dao4 zhe4 ge4 e4 hao4 ， xiao3 liu2 zhan4 li4 ， xiao3 chen2 chan4 dou3 。",
+            "ta1 ba1 xia4 pi2 xie2 ， jiu4 qu4 zhui1 pa2 shou3 。",
+            "wo3 shou1 ji2 de5 cai2 liao4 san4 shi1 le5 ， san3 wen2 mei2 fa3 xie3 le5 。",
             "liang3 sui4 neng2 shu3 shu4 de5 xiao3 hai2 yi3 shuo4 jian4 bu4 xian1 le5 。",
-            "ren2 shen1 miao2 zhang3 de2 cen1 ci1 bu4 qi2 ，hai2 rang4 can1 guan1 ma5 。",
+            "ren2 shen1 miao2 zhang3 de2 cen1 ci1 bu4 qi2 ， hai2 rang4 ren2 can1 guan1 ma5 。",
             "jin1 tian1 zhao4 kai1 de5 kuai4 ji4 gong1 zuo4 hui4 yi4 yi1 hui4 er2 jiu4 yao4 jie2 shu4 le5 。",
             "ta1 yong4 bo4 ji1 bo3 mi3 。",
             "di2 ren2 de5 kong3 he4 xia4 bu4 dao3 ta1 。",
-            "fei2 pang4 bing4 bu4 dou1 shi4 yin1 wei4 xin1 kuan1 ti3 pan2 ，er2 shi4 que1 shao3 duan4 lian4 。",
+            "fei2 pang4 bing4 bu4 dou1 shi4 yin1 wei4 xin1 kuan1 ti3 pan2 ， er2 shi4 que1 shao3 duan4 lian4 。",
             "bian1 ci4 hou4 ta1 bian1 kui1 si4 dong4 jing4 。"
     };
 
@@ -74,17 +74,17 @@ public class TestPinyinUtil {
      * 和 {@link #CHINESE_SENTENCE_ARRAY} 对应的带有符号声调的拼音语句数组
      */
     private static final String[] EXPECTED_PINYIN_WITH_TONE_MARK_ARRAY = new String[] {
-            "wǒ bù xǐ huān chōu xuě jiā yān ，dàn wǒ xǐ huān chī fān qié 。",
+            "wǒ bù xǐ huān chōu xuě jiā yān ， dàn wǒ xǐ huān chī fān qié 。",
             "zhè zhǒng dàn gōng tán lì hěn qiáng 。",
-            "tīng dào zhè gè è hào ，xiǎo liú zhàn lì ，xiǎo chén chàn dǒu 。",
-            "tā bā xià pí xié ，jiù qù zhuī pá shǒu 。",
-            "wǒ shōu jí de cái liào sàn shī le ，sǎn wén méi fǎ xiě le 。",
+            "tīng dào zhè gè è hào ， xiǎo liú zhàn lì ， xiǎo chén chàn dǒu 。",
+            "tā bā xià pí xié ， jiù qù zhuī pá shǒu 。",
+            "wǒ shōu jí de cái liào sàn shī le ， sǎn wén méi fǎ xiě le 。",
             "liǎng suì néng shǔ shù de xiǎo hái yǐ shuò jiàn bù xiān le 。",
-            "rén shēn miáo zhǎng dé cēn cī bù qí ，hái ràng cān guān ma 。",
+            "rén shēn miáo zhǎng dé cēn cī bù qí ， hái ràng rén cān guān ma 。",
             "jīn tiān zhào kāi de kuài jì gōng zuò huì yì yī huì ér jiù yào jié shù le 。",
             "tā yòng bò jī bǒ mǐ 。",
             "dí rén de kǒng hè xià bù dǎo tā 。",
-            "féi pàng bìng bù dōu shì yīn wèi xīn kuān tǐ pán ，ér shì quē shǎo duàn liàn 。",
+            "féi pàng bìng bù dōu shì yīn wèi xīn kuān tǐ pán ， ér shì quē shǎo duàn liàn 。",
             "biān cì hòu tā biān kuī sì dòng jìng 。"
     };
 
@@ -92,17 +92,17 @@ public class TestPinyinUtil {
      * 和 {@link #CHINESE_SENTENCE_ARRAY} 对应的不带声调的拼音语句数组
      */
     private static final String[] EXPECTED_PINYIN_WITHOUT_TONE_ARRAY = new String[] {
-            "wo bu xi huan chou xue jia yan ，dan wo xi huan chi fan qie 。",
+            "wo bu xi huan chou xue jia yan ， dan wo xi huan chi fan qie 。",
             "zhe zhong dan gong tan li hen qiang 。",
-            "ting dao zhe ge e hao ，xiao liu zhan li ，xiao chen chan dou 。",
-            "ta ba xia pi xie ，jiu qu zhui pa shou 。",
-            "wo shou ji de cai liao san shi le ，san wen mei fa xie le 。",
+            "ting dao zhe ge e hao ， xiao liu zhan li ， xiao chen chan dou 。",
+            "ta ba xia pi xie ， jiu qu zhui pa shou 。",
+            "wo shou ji de cai liao san shi le ， san wen mei fa xie le 。",
             "liang sui neng shu shu de xiao hai yi shuo jian bu xian le 。",
-            "ren shen miao zhang de cen ci bu qi ，hai rang can guan ma 。",
+            "ren shen miao zhang de cen ci bu qi ， hai rang ren can guan ma 。",
             "jin tian zhao kai de kuai ji gong zuo hui yi yi hui er jiu yao jie shu le 。",
             "ta yong bo ji bo mi 。",
             "di ren de kong he xia bu dao ta 。",
-            "fei pang bing bu dou shi yin wei xin kuan ti pan ，er shi que shao duan lian 。",
+            "fei pang bing bu dou shi yin wei xin kuan ti pan ， er shi que shao duan lian 。",
             "bian ci hou ta bian kui si dong jing 。"
     };
 
