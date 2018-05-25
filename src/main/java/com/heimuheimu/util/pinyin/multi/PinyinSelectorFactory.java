@@ -84,7 +84,7 @@ public class PinyinSelectorFactory {
                         List<ChineseWordMatcher> wordMatcherList = new ArrayList<>();
                         for (int i = 1; i < parts.length; i++) {
                             String chineseWord = parts[i].trim();
-                            if (chineseWord.indexOf("_") < 0) {
+                            if (!chineseWord.contains("_")) {
                                 wordMatcherList.add(new ChineseWordMatcher(chineseWord, codePoint));
                             } else {
                                 String[] wordParts = chineseWord.split("_");

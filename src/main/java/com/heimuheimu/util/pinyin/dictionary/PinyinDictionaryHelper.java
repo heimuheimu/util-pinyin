@@ -36,7 +36,7 @@ public class PinyinDictionaryHelper {
     /**
      * 中文字符最小的 UNICODE 编码值
      */
-    public static int CHINESE_CHAR_MIN_CODE_POINT = 0x4e00;
+    public static final int CHINESE_CHAR_MIN_CODE_POINT = 0x4e00;
 
     /**
      * 中文字符最大的 UNICODE 编码值

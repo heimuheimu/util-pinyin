@@ -36,12 +36,12 @@ import java.util.Arrays;
  */
 public class TestPinyinDictionary {
 
-    private static PinyinDictionary DICTIONARY = PinyinDictionaryFactory.getDictionary();
+    private static final PinyinDictionary DICTIONARY = PinyinDictionaryFactory.getDictionary();
 
     /**
      * 中文字符 UNICODE 编码值数组
      */
-    private static int[] VALID_CHINESE_CHARACTER_ARRAY = new int[] {
+    private static final int[] VALID_CHINESE_CHARACTER_ARRAY = new int[] {
             '一',
             '龥',
             '嗯',
@@ -61,7 +61,7 @@ public class TestPinyinDictionary {
     /**
      * 和 {@code VALID_CHINESE_CHARACTER_ARRAY} 对应的带有数字声调的拼音二维数组
      */
-    private static String[][] EXPECTED_PINYIN_WITH_TONE_NUMBER_TOW_DIMENSIONAL_ARRAY = new String[][] {
+    private static final String[][] EXPECTED_PINYIN_WITH_TONE_NUMBER_TOW_DIMENSIONAL_ARRAY = new String[][] {
             new String[]{"yi1"},
             new String[]{"yu4"},
             new String[]{"ng4"},
@@ -81,7 +81,7 @@ public class TestPinyinDictionary {
     /**
      * 和 {@code VALID_CHINESE_CHARACTER_ARRAY} 对应的不带声调的拼音二维数组
      */
-    private static String[][] EXPECTED_PINYIN_WITHOUT_TONE_TOW_DIMENSIONAL_ARRAY = new String[][] {
+    private static final String[][] EXPECTED_PINYIN_WITHOUT_TONE_TOW_DIMENSIONAL_ARRAY = new String[][] {
             new String[]{"yi"},
             new String[]{"yu"},
             new String[]{"ng"},
@@ -101,7 +101,7 @@ public class TestPinyinDictionary {
     /**
      * 和 {@code VALID_CHINESE_CHARACTER_ARRAY} 对应的带有符号声调的拼音二维数组
      */
-    private static String[][] EXPECTED_PINYIN_WITH_TONE_MARK_TOW_DIMENSIONAL_ARRAY = new String[][] {
+    private static final String[][] EXPECTED_PINYIN_WITH_TONE_MARK_TOW_DIMENSIONAL_ARRAY = new String[][] {
             new String[]{"yī"},
             new String[]{"yù"},
             new String[]{"ǹg"},
@@ -121,7 +121,7 @@ public class TestPinyinDictionary {
     /**
      * 非中文字符 UNICODE 编码值数组
      */
-    private static int[] INVALID_CHINESE_CHARACTER_ARRAY = new int[] {
+    private static final int[] INVALID_CHINESE_CHARACTER_ARRAY = new int[] {
             0x4e00 - 1, 0x9fa5 + 1, 0, Integer.MAX_VALUE, Integer.MIN_VALUE, '.', '，'
     };
 

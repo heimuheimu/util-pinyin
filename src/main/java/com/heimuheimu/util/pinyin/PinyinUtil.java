@@ -31,7 +31,7 @@ import com.heimuheimu.util.pinyin.multi.PinyinSelectorFactory;
 
 public class PinyinUtil {
 
-    private static PinyinDictionary PINYIN_DICTIONARY = PinyinDictionaryFactory.getDictionary();
+    private static final PinyinDictionary PINYIN_DICTIONARY = PinyinDictionaryFactory.getDictionary();
 
     public static String toPinyinWithToneNumber(String text) {
         if (text != null && !text.isEmpty()) {
