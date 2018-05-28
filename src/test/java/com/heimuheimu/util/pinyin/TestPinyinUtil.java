@@ -49,7 +49,8 @@ public class TestPinyinUtil {
             "他用簸箕簸米。",
             "敌人的恐吓吓不倒他。",
             "肥胖并不都是因为心宽体胖，而是缺少锻炼。",
-            "边伺候他边窥伺动静。"
+            "边伺候他边窥伺动静。",
+            "好逸恶劳、好为人师的做法都不好。"
     };
 
     /**
@@ -67,7 +68,8 @@ public class TestPinyinUtil {
             "ta1 yong4 bo4 ji1 bo3 mi3 。",
             "di2 ren2 de5 kong3 he4 xia4 bu4 dao3 ta1 。",
             "fei2 pang4 bing4 bu4 dou1 shi4 yin1 wei4 xin1 kuan1 ti3 pan2 ， er2 shi4 que1 shao3 duan4 lian4 。",
-            "bian1 ci4 hou4 ta1 bian1 kui1 si4 dong4 jing4 。"
+            "bian1 ci4 hou4 ta1 bian1 kui1 si4 dong4 jing4 。",
+            "hao4 yi4 wu4 lao2 、 hao4 wei2 ren2 shi1 de5 zuo4 fa3 dou1 bu4 hao3 。"
     };
 
     /**
@@ -85,7 +87,8 @@ public class TestPinyinUtil {
             "tā yòng bò jī bǒ mǐ 。",
             "dí rén de kǒng hè xià bù dǎo tā 。",
             "féi pàng bìng bù dōu shì yīn wèi xīn kuān tǐ pán ， ér shì quē shǎo duàn liàn 。",
-            "biān cì hòu tā biān kuī sì dòng jìng 。"
+            "biān cì hòu tā biān kuī sì dòng jìng 。",
+            "hào yì wù láo 、 hào wéi rén shī de zuò fǎ dōu bù hǎo 。"
     };
 
     /**
@@ -103,7 +106,8 @@ public class TestPinyinUtil {
             "ta yong bo ji bo mi 。",
             "di ren de kong he xia bu dao ta 。",
             "fei pang bing bu dou shi yin wei xin kuan ti pan ， er shi que shao duan lian 。",
-            "bian ci hou ta bian kui si dong jing 。"
+            "bian ci hou ta bian kui si dong jing 。",
+            "hao yi wu lao 、 hao wei ren shi de zuo fa dou bu hao 。"
     };
 
     /**
@@ -112,6 +116,13 @@ public class TestPinyinUtil {
      */
     @Test
     public void testToPinyin() {
+        int j = 12;
+        System.out.println(CHINESE_SENTENCE_ARRAY[j]);
+        System.out.println(PinyinUtil.toPinyinWithToneNumber(CHINESE_SENTENCE_ARRAY[j]));
+        System.out.println(PinyinUtil.toPinyinWithToneMark(CHINESE_SENTENCE_ARRAY[j]));
+        System.out.println(PinyinUtil.toPinyinWithoutTone(CHINESE_SENTENCE_ARRAY[j]));
+
+        System.out.println();
         for (int i = 0; i < CHINESE_SENTENCE_ARRAY.length; i++) {
             String sentence = CHINESE_SENTENCE_ARRAY[i];
 
