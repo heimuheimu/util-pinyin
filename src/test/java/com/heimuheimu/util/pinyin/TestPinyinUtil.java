@@ -116,13 +116,6 @@ public class TestPinyinUtil {
      */
     @Test
     public void testToPinyin() {
-        int j = 12;
-        System.out.println(CHINESE_SENTENCE_ARRAY[j]);
-        System.out.println(PinyinUtil.toPinyinWithToneNumber(CHINESE_SENTENCE_ARRAY[j]));
-        System.out.println(PinyinUtil.toPinyinWithToneMark(CHINESE_SENTENCE_ARRAY[j]));
-        System.out.println(PinyinUtil.toPinyinWithoutTone(CHINESE_SENTENCE_ARRAY[j]));
-
-        System.out.println();
         for (int i = 0; i < CHINESE_SENTENCE_ARRAY.length; i++) {
             String sentence = CHINESE_SENTENCE_ARRAY[i];
 

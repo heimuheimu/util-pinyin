@@ -3,18 +3,21 @@
 ## 使用要求
 * JDK 版本：1.8+ 
 
+## util-jdbc 特色：
+* 体积小、速度快、多音字识别准确率高
+
 ## Maven 配置
 ```xml
     <dependency>
         <groupId>com.heimuheimu</groupId>
         <artifactId>util-pinyin</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </dependency>
 ```
 
 ### 示例代码
 
-将文本中的中文替换为拼音：
+将文本中的中文转换为拼音：
 ```java
     public class ChineseSentenceConverter {
     
@@ -34,7 +37,7 @@
     }
 ```
 
-获得单个中文汉字的拼音：
+获得单个中文汉字的拼音数组：
 ```java
     public class PinyinFetcher {
     
