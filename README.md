@@ -1,5 +1,7 @@
 # util-pinyin: 中文汉字拼音转换工具，支持常用多音字转换。
 
+<a href="https://lgtm.com/projects/g/heimuheimu/util-pinyin/alerts/"><img alt="Total alerts" src="https://img.shields.io/lgtm/alerts/g/heimuheimu/util-pinyin.svg?logo=lgtm&logoWidth=18"/></a>
+
 ## 使用要求
 * JDK 版本：1.8+ 
 
