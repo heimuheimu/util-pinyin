@@ -41,7 +41,7 @@ public class PinyinDictionaryHelper {
     /**
      * 中文字符最大的 UNICODE 编码值
      */
-    public static int CHINESE_CHAR_MAX_CODE_POINT = 0x9fa5;
+    public static final int CHINESE_CHAR_MAX_CODE_POINT = 0x9fa5;
 
     /**
      * 根据 UNICODE 编码值判断是否为中文字符。
